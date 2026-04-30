@@ -31,15 +31,11 @@ import gov.nasa.worldwind.BasicModel;
 import gov.nasa.worldwind.geom.Position;
 import gov.nasa.worldwind.render.*;
 import gov.nasa.worldwind.view.orbit.BasicOrbitView;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
-
-@RunWith(JUnit4.class)
+import static org.junit.jupiter.api.Assertions.*;
 public class IconLayerTest
 {
     //////////////////////////////////////////////////////////
@@ -53,7 +49,7 @@ public class IconLayerTest
 
         // Test the parameterless constructor.
         layer = new IconLayer();
-        assertNotNull("", layer);
+        assertNotNull(layer, "");
     }
 
     @Test
@@ -68,7 +64,7 @@ public class IconLayerTest
         }
 
         // Test that the layer contains the icons.
-        assertEquals("", icons, layer.getIcons());
+        assertIterablesEqual(icons, layer.getIcons(), "");
     }
 
     @Test
@@ -80,7 +76,7 @@ public class IconLayerTest
         layer.addIcons(icons);
 
         // Test that the layer contains the icons.
-        assertEquals("", icons, layer.getIcons());
+        assertIterablesEqual(icons, layer.getIcons(), "");
     }
 
     @Test
@@ -99,7 +95,7 @@ public class IconLayerTest
         }
 
         // Test that the layer contains no icons.
-        assertFalse("", layer.getIcons().iterator().hasNext());
+        assertFalse(layer.getIcons().iterator().hasNext(), "");
     }
 
     @Test
@@ -112,7 +108,7 @@ public class IconLayerTest
         layer.removeAllIcons();
 
         // Test that the layer contains no icons.
-        assertFalse("", layer.getIcons().iterator().hasNext());
+        assertFalse(layer.getIcons().iterator().hasNext(), "");
     }
 
     @Test
@@ -124,7 +120,7 @@ public class IconLayerTest
         layer.setIcons(icons);
 
         // Test that the layer points to the Iterable.
-        assertSame("", icons, layer.getIcons());
+        assertSame(icons, layer.getIcons(), "");
     }
 
     //////////////////////////////////////////////////////////
@@ -142,9 +138,9 @@ public class IconLayerTest
         layer.setIcons(null);
 
         // Test that the layer does not point to the Iterable.
-        assertNotSame("", icons, layer.getIcons());
+        assertNotSame(icons, layer.getIcons(), "");
         // Test that the layer contains no icons.
-        assertFalse("", layer.getIcons().iterator().hasNext());
+        assertFalse(layer.getIcons().iterator().hasNext(), "");
     }
 
     @Test
@@ -158,9 +154,9 @@ public class IconLayerTest
         layer.addIcons(icons);
 
         // Test that the layer does not point to the Iterable.
-        assertNotSame("", icons, layer.getIcons());
+        assertNotSame(icons, layer.getIcons(), "");
         // Test that the layer contains the icons.
-        assertEquals("", icons, layer.getIcons());
+        assertIterablesEqual(icons, layer.getIcons(), "");
     }
 
     @Test
@@ -197,7 +193,7 @@ public class IconLayerTest
         }
 
         // Test that the layer contents do not change, even if the returned list can be modified.
-        assertEquals("", icons, layerIcons);
+        assertIterablesEqual(icons, layerIcons, "");
     }
 
     @Test
@@ -314,11 +310,11 @@ public class IconLayerTest
     //////////////////////////////////////////////////////////
 
     @SuppressWarnings({"JavaDoc"})
-    private static void assertEquals(String message, Iterable<WWIcon> expected, Iterable<WWIcon> actual)
+    private static void assertIterablesEqual(Iterable<WWIcon> expected, Iterable<WWIcon> actual, String message)
     {
         if (expected == null)
         {
-            assertNull(message, actual);
+            assertNull(actual, message);
         }
         else
         {
