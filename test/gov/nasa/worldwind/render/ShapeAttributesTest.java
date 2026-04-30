@@ -134,16 +134,7 @@ public class ShapeAttributesTest
     @MethodSource("data")
     public void testRestoreNullDocument(ShapeAttributes defaultAttributes, ShapeAttributes exampleAttributes)
     {
-        try
-        {
-            ShapeAttributes attrs = defaultAttributes.copy();
-            attrs.restoreState(null, null);
-            fail("Expected an IllegalArgumentException");
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalArgumentException.class, () -> defaultAttributes.copy().restoreState(null, null));
     }
 
     @ParameterizedTest

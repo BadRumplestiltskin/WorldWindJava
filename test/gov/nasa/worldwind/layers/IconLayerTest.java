@@ -187,9 +187,9 @@ public class IconLayerTest
                 }
             }
         }
-        catch (UnsupportedOperationException e)
+        catch (UnsupportedOperationException ignored)
         {
-            e.printStackTrace();
+            // An immutable view is acceptable — what matters is that layer state is unchanged below.
         }
 
         // Test that the layer contents do not change, even if the returned list can be modified.
@@ -233,16 +233,8 @@ public class IconLayerTest
         IconLayer layer = new IconLayer();
         layer.setIcons(icons);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.addIcon(new UserFacingIcon("", Position.ZERO));
-            fail("");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class,
+            () -> layer.addIcon(new UserFacingIcon("", Position.ZERO)));
     }
 
     @Test
@@ -253,16 +245,7 @@ public class IconLayerTest
         IconLayer layer = new IconLayer();
         layer.setIcons(icons);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.addIcons(icons);
-            fail("");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class, () -> layer.addIcons(icons));
     }
 
     @Test
@@ -273,16 +256,8 @@ public class IconLayerTest
         IconLayer layer = new IconLayer();
         layer.setIcons(icons);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.removeIcon(new UserFacingIcon("", Position.ZERO));
-            fail("");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class,
+            () -> layer.removeIcon(new UserFacingIcon("", Position.ZERO)));
     }
 
     @Test
@@ -293,16 +268,7 @@ public class IconLayerTest
         IconLayer layer = new IconLayer();
         layer.setIcons(icons);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.removeAllIcons();
-            fail("");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class, () -> layer.removeAllIcons());
     }
 
     //////////////////////////////////////////////////////////

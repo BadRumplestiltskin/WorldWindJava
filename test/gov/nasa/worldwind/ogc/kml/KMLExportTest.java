@@ -33,6 +33,7 @@ import gov.nasa.worldwind.geom.*;
 import gov.nasa.worldwind.render.*;
 import gov.nasa.worldwind.util.Logging;
 import gov.nasa.worldwindx.examples.kml.KMLDocumentBuilder;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -56,11 +57,8 @@ public class KMLExportTest
     private static ShapeAttributes normalShapeAttributes;
     private static ShapeAttributes highlightShapeAttributes;
 
-    /**
-     * Provides parameterised data: one {@code List<Exportable>} per test invocation.
-     */
-    @SuppressWarnings("unused")
-    static Stream<List<Exportable>> data()
+    @BeforeAll
+    static void setupAttributes()
     {
         normalShapeAttributes = new BasicShapeAttributes();
         normalShapeAttributes.setInteriorMaterial(Material.BLUE);
@@ -69,7 +67,13 @@ public class KMLExportTest
         highlightShapeAttributes = new BasicShapeAttributes();
         highlightShapeAttributes.setInteriorMaterial(Material.RED);
         highlightShapeAttributes.setOutlineMaterial(Material.BLACK);
+    }
 
+    /**
+     * Provides parameterised data: one {@code List<Exportable>} per test invocation.
+     */
+    static Stream<List<Exportable>> data()
+    {
         return Stream.of(
             // Export a single instance of each type of shape to its own document to test the shape exporters in isolation.
             Collections.singletonList(makePointPlacemark()),

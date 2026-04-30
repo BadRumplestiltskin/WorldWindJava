@@ -187,9 +187,9 @@ public class AnnotationLayerTest
                 }
             }
         }
-        catch (UnsupportedOperationException e)
+        catch (UnsupportedOperationException ignored)
         {
-            e.printStackTrace();
+            // An immutable view is acceptable — what matters is that layer state is unchanged below.
         }
 
         // Test that the layer contents do not change, even if the returned list can be modified.
@@ -233,16 +233,8 @@ public class AnnotationLayerTest
         AnnotationLayer layer = new AnnotationLayer();
         layer.setAnnotations(annotations);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.addAnnotation(new GlobeAnnotation("", Position.ZERO));
-            fail("");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class,
+            () -> layer.addAnnotation(new GlobeAnnotation("", Position.ZERO)));
     }
 
     @Test
@@ -253,16 +245,7 @@ public class AnnotationLayerTest
         AnnotationLayer layer = new AnnotationLayer();
         layer.setAnnotations(annotations);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.addAnnotations(annotations);
-            fail("");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class, () -> layer.addAnnotations(annotations));
     }
 
     @Test
@@ -273,16 +256,8 @@ public class AnnotationLayerTest
         AnnotationLayer layer = new AnnotationLayer();
         layer.setAnnotations(annotations);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.removeAnnotation(new GlobeAnnotation("", Position.ZERO));
-            fail("");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class,
+            () -> layer.removeAnnotation(new GlobeAnnotation("", Position.ZERO)));
     }
 
     @Test
@@ -293,16 +268,7 @@ public class AnnotationLayerTest
         AnnotationLayer layer = new AnnotationLayer();
         layer.setAnnotations(annotations);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.removeAllAnnotations();
-            fail("");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class, () -> layer.removeAllAnnotations());
     }
 
     //////////////////////////////////////////////////////////

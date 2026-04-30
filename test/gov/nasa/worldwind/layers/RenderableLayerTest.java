@@ -254,9 +254,9 @@ public class RenderableLayerTest
                 }
             }
         }
-        catch (UnsupportedOperationException e)
+        catch (UnsupportedOperationException ignored)
         {
-            e.printStackTrace();
+            // An immutable view is acceptable — what matters is that layer state is unchanged below.
         }
 
         // Test that the layer contents do not change, even if the returned list can be modified.
@@ -314,16 +314,7 @@ public class RenderableLayerTest
         RenderableLayer layer = new RenderableLayer();
         layer.setRenderables(renderables);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.addRenderable(new Path());
-            fail("Should raise an IllegalStateException");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class, () -> layer.addRenderable(new Path()));
     }
 
     @Test
@@ -334,16 +325,7 @@ public class RenderableLayerTest
         RenderableLayer layer = new RenderableLayer();
         layer.setRenderables(renderables);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.addRenderables(renderables);
-            fail("Should raise an IllegalStateException");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class, () -> layer.addRenderables(renderables));
     }
 
     @Test
@@ -354,16 +336,7 @@ public class RenderableLayerTest
         RenderableLayer layer = new RenderableLayer();
         layer.setRenderables(renderables);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.addRenderable(0, new Path());
-            fail("Should raise an IllegalStateException");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class, () -> layer.addRenderable(0, new Path()));
     }
 
     @Test
@@ -374,16 +347,7 @@ public class RenderableLayerTest
         RenderableLayer layer = new RenderableLayer();
         layer.setRenderables(renderables);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.removeRenderable(new Path());
-            fail("Should raise an IllegalStateException");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class, () -> layer.removeRenderable(new Path()));
     }
 
     @Test
@@ -394,16 +358,7 @@ public class RenderableLayerTest
         RenderableLayer layer = new RenderableLayer();
         layer.setRenderables(renderables);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.removeAllRenderables();
-            fail("Should raise an IllegalStateException");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class, () -> layer.removeAllRenderables());
     }
 
     @Test
@@ -414,16 +369,7 @@ public class RenderableLayerTest
         RenderableLayer layer = new RenderableLayer();
         layer.setRenderables(renderables);
 
-        try
-        {
-            // Expecting an IllegalStateException here.
-            layer.dispose();
-            fail("Should raise an IllegalStateException");
-        }
-        catch (IllegalStateException e)
-        {
-            e.printStackTrace();
-        }
+        assertThrows(IllegalStateException.class, () -> layer.dispose());
     }
 
     //////////////////////////////////////////////////////////

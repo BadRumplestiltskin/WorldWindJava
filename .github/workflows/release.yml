@@ -26,17 +26,10 @@ jobs:
       - name: Install Xvfb
         run: sudo apt-get install -y xvfb
 
-      # Run the full test suite before publishing — refuse to release a broken build.
-      - name: Test
-        run: xvfb-run --auto-servernum mvn --batch-mode --no-transfer-progress test
-
-      # Package produces target/worldwind-java-<version>.jar
-      - name: Package
-        run: mvn --batch-mode --no-transfer-progress -DskipTests package
-
-      # Generate Javadoc into target/site/apidocs/
-      - name: Javadoc
-        run: mvn --batch-mode --no-transfer-progress -DskipTests javadoc:javadoc
+      # Compile, test, package, and generate Javadoc in one Maven invocation.
+      # Tests run before packaging — refuse to release a broken build.
+      - name: Build, test, and package
+        run: xvfb-run --auto-servernum mvn --batch-mode --no-transfer-progress verify javadoc:javadoc
 
       # Zip the Javadoc tree so it can be attached as a single release asset.
       - name: Zip Javadoc
